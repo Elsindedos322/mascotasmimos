@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFB74D</color> <!-- Naranja claro -->
+    <color name="colorPrimaryVariant">#FFA726</color> <!-- Naranja un poco más intenso -->
+    <color name="colorSecondary">#FFCC80</color> <!-- Naranja muy pastel -->
+    <color name="colorSecondaryVariant">#FFE0B2</color> <!-- Naranja casi blanco -->
+    <color name="colorTertiary">#FFF3E0</color> <!-- Fondo muy claro -->
+
+    <!-- Colores adicionales para el tema -->
+    <color name="colorOnPrimary">#212121</color> <!-- Texto sobre fondos naranja -->
+    <color name="colorOnSecondary">#212121</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#212121</color>
+    <color name="colorBackground">#FFF8F2</color> <!-- Fondo pastel muy suave -->
+
+    <!-- Colores para componentes específicos -->
+    <color name="button_background">#FFA726</color>
+    <color name="button_text">#FFFFFF</color>
+</resources>

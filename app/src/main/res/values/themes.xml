@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Mascotasmimos" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <!-- Background and surface colors -->
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <!-- Component colors -->
+        <item name="buttonStyle">@style/Widget.Mascotasmimos.Button</item>
+        <item name="textInputStyle">@style/Widget.Mascotasmimos.TextInput</item>
+
+        <!-- Estado del botón -->
+        <item name="materialButtonOutlinedStyle">@style/Widget.Mascotasmimos.Button.Outlined</item>
+
+    </style>
+
+    <!-- Botón rellenado -->
+    <style name="Widget.Mascotasmimos.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/button_background</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Mascotasmimos.SmallComponent</item>
+    </style>
+
+    <!-- Botón con borde -->
+    <style name="Widget.Mascotasmimos.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Mascotasmimos.SmallComponent</item>
+    </style>
+
+    <!-- Campos de texto -->
+    <style name="Widget.Mascotasmimos.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Mascotasmimos.SmallComponent</item>
+    </style>
+
+    <!-- Formas redondeadas -->
+    <style name="ShapeAppearance.Mascotasmimos.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">mascotasmimos</string>
+    <string name="select_image">Seleccionar imagen</string>
+    <string name="pet_name">Nombre</string>
+    <string name="pet_age">Edad</string>
+    <string name="pet_type">Tipo (Perro, Gato, etc.)</string>
+    <string name="pet_breed">Raza</string>
+    <string name="save_pet">Guardar mascota</string>
+    <string name="pet_image_description">Imagen de la mascota</string>
+    <string name="error_required_field">Este campo es requerido</string>
+    <string name="error_invalid_age">La edad debe ser un número válido</string>
+</resources>
