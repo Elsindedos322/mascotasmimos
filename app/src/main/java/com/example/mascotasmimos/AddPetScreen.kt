@@ -1,6 +1,7 @@
 package com.example.mascotasmimos
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -27,8 +28,12 @@ fun AddPetScreen(onBack: () -> Unit) {
     var petType by remember { mutableStateOf("") }
     var petBreed by remember { mutableStateOf("") }
     var petImageUri by remember { mutableStateOf<Uri?>(null) }
-
     val context = LocalContext.current
+
+    // Inicia Firebase Storage
+    val storage = remember { com.google.firebase.storage.FirebaseStorage.getInstance() }
+    val storageRef = remember { storage.reference.child("pets") }
+
     val imagePicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri -> petImageUri = uri }
@@ -41,81 +46,57 @@ fun AddPetScreen(onBack: () -> Unit) {
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Imagen de la mascota
-        if (petImageUri != null) {
-            Image(
-                bitmap = context.contentResolver
-                    .openInputStream(petImageUri!!)
-                    ?.use { android.graphics.BitmapFactory.decodeStream(it) }
-                    ?.asImageBitmap()!!,
-                contentDescription = "Imagen de la mascota",
-                modifier = Modifier.size(120.dp)
-            )
+        // Imagen seleccionada o placeholder
+        val bitmap = petImageUri?.let { uri ->
+            context.contentResolver.openInputStream(uri)?.use {
+                android.graphics.BitmapFactory.decodeStream(it)
+            }
+        }?.asImageBitmap()
+
+        if (bitmap != null) {
+            Image(bitmap = bitmap, contentDescription = null, modifier = Modifier.size(120.dp))
         } else {
             Image(
                 painter = painterResource(id = R.drawable.todosanimales),
-                contentDescription = "Imagen de la mascota",
+                contentDescription = null,
                 modifier = Modifier.size(120.dp)
             )
         }
 
-        Button(
-            onClick = { imagePicker.launch("image/*") },
-            modifier = Modifier.padding(vertical = 16.dp)
-        ) {
+        Button(onClick = { imagePicker.launch("image/*") }, modifier = Modifier.padding(vertical = 16.dp)) {
             Text("Seleccionar imagen")
         }
 
-        // Campos del formulario
-        OutlinedTextField(
-            value = petName,
-            onValueChange = { petName = it },
-            label = { Text("Nombre") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = petAge,
-            onValueChange = { petAge = it },
-            label = { Text("Edad") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = petType,
-            onValueChange = { petType = it },
-            label = { Text("Tipo (Perro, Gato, etc.)") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = petBreed,
-            onValueChange = { petBreed = it },
-            label = { Text("Raza") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        OutlinedTextField(value = petName, onValueChange = { petName = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+        OutlinedTextField(value = petAge, onValueChange = { petAge = it }, label = { Text("Edad") }, modifier = Modifier.fillMaxWidth())
+        OutlinedTextField(value = petType, onValueChange = { petType = it }, label = { Text("Tipo") }, modifier = Modifier.fillMaxWidth())
+        OutlinedTextField(value = petBreed, onValueChange = { petBreed = it }, label = { Text("Raza") }, modifier = Modifier.fillMaxWidth())
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
-            onClick = {
-                // Validación y guardado
-                if (petName.isNotBlank() && petAge.isNotBlank() && petType.isNotBlank()) {
-                    // Aquí iría la lógica para guardar
-                    onBack() // Volver atrás después de guardar
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Button(onClick = {
+            if (petName.isBlank() || petAge.isBlank() || petType.isBlank()) {
+                Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+                return@Button
+            }
+            if (petImageUri != null) {
+                // Subida a Firebase Storage
+                val uri = petImageUri!!
+                val fileRef = storageRef.child("${System.currentTimeMillis()}.jpg")
+                fileRef.putFile(uri)
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Mascota guardada", Toast.LENGTH_SHORT).show()
+                        onBack()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context, "Error al subir imagen: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(context, "Mascota guardada", Toast.LENGTH_SHORT).show()
+                onBack()
+            }
+        }, modifier = Modifier.fillMaxWidth()) {
             Text("Guardar mascota")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AddPetScreenPreview() {
-    MascotasmimosTheme {
-        AddPetScreen(onBack = {})
     }
 }

@@ -9,4 +9,10 @@
     <string name="pet_image_description">Imagen de la mascota</string>
     <string name="error_required_field">Este campo es requerido</string>
     <string name="error_invalid_age">La edad debe ser un número válido</string>
+    <string name="default_web_client_id">244692717052-8uuntnh54q4k8dadivt39n466735mk8o.apps.googleusercontent.com</string>
+
+    <!-- Datos de Facebook REALES -->
+    <string name="facebook_app_id">mimos</string>
+    <string name="facebook_client_token">mimosapp</string>
+    <string name="fb_login_protocol_scheme">https://mascotmimos.firebaseapp.com/__/auth/handler</string>
 </resources>

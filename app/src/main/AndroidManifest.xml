@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permiso para acceder a la galería de imágenes -->
+    <!-- Permisos -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Mascotasmimos"
         tools:targetApi="31">
 
-        <!-- Actividad principal: Pantalla de inicio de sesión -->
+        <!-- Actividad principal (Login) -->
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -27,7 +27,20 @@
             </intent-filter>
         </activity>
 
-        <!-- Actividad para agregar mascotas -->
+        <!-- Registro -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Mascotasmimos" />
+
+        <!-- Pantalla principal -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Mascotasmimos" />
+
+        <!-- Agregar mascotas -->
         <activity
             android:name=".AddPetActivity"
             android:parentActivityName=".MainActivity"
@@ -38,16 +51,25 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <!-- Actividad principal después del inicio de sesión -->
+        <!-- Facebook SDK activity -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.facebook.FacebookActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Mascotasmimos">
-        </activity>
-        <activity android:name=".SignUpActivity" />
+            tools:replace="android:theme" />
 
+        <!-- Facebook content provider -->
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider244692717052123"
+            android:exported="true" />
 
+        <!-- Facebook callback -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
     </application>
-
 </manifest>
